@@ -5,18 +5,22 @@
 void bubble_sort(int *array, size_t size)
 {
 	size_t i = 0;
+	size_t y = 0;
 	int aux = 0;
 
-	for (i = 0; i < size; i++)
+	for (y = 0; y < size; y++)
 	{
-		if (array[i] > array[i + 1])
+		for (i = 0; i < size; i++)
 		{
-			aux = array[i];
-			array[i] = array[i + 1];
-			array [i + 1] = aux;
-			print_array(array, size);
+			if (array[i] > array[i + 1])
+			{
+				aux = array[i];
+				array[i] = array[i + 1];
+				array [i + 1] = aux;
+				print_array(array, size);
+			}
+			else
+				continue;
 		}
-		else
-			continue;
 	}
 }
