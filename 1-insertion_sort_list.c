@@ -1,37 +1,32 @@
 #include "sort.h"
+/**
+ * insertion_sort_list - Put the nodes in order (n based)
+ * @list: A pointer to the head.
+ * Return: void.
+ */
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *current = *list;
 	listint_t *aux;
 
-	while (current->next != NULL)
+	while (current)
 	{
-		current = current->next;
 		aux = current->prev;
-		if(current->n < current->prev->n)
+		while (aux != NULL && aux->n > current->n)
 		{
-			aux->next = current->next;
-			current->next = aux;
 			current->prev = aux->prev;
+			aux->next = current->next;
 			aux->prev = current;
+			current->next = aux;
+			if (aux->next)
+				aux->next->prev = aux;
+			if (current->prev)
+				current->prev->next = current;
 			if (current->prev == NULL)
 				*list = current;
 			print_list(*list);
-			while (current->prev != NULL)
-			{
-				current = current->prev;
-				aux = aux->prev;
-				if (current->n < aux->n)
-				{
-					current->next = aux->next;
-					aux->next = current;
-					aux->prev = current->prev;
-					current->prev = aux;
-					print_list(*list);
-				}
-				else
-					break;
-			}
+			aux = current->prev;
 		}
+		current = current->next;
 	}
 }
